@@ -44,15 +44,15 @@ def dig_domain_name(domain_name,dns_server):
     except dns.resolver.NXDOMAIN:
         print(f"Domain {domain_name} does not exist!")
 
-def host_list():
-    dns_server = sys.argv[1]
+def host_list(dns_server):
     with open('dig_hosts.txt', 'r') as file:
         for domain_name in file:
             domain_name = ''.join(char for char in domain_name if char in string.printable and char not in string.whitespace)
             dig_domain_name(domain_name,dns_server)
 
 def main():
-    host_list()
+    dns_server = sys.argv[1]
+    host_list(dns_server)
 
 if __name__ == "__main__":
     main()
