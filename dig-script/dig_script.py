@@ -9,7 +9,7 @@ import dns.resolver
 def banner():
     print("*****" * 20)
 
-def write_output_file(domain_name, value):
+def write_host_file(domain_name, value):
     headers = ['Hostname', 'Dig Result']
     data = [[domain_name, value],]
 
@@ -34,7 +34,7 @@ def dig_domain_name(domain_name,dns_server):
         response = resolver.resolve(domain_name, 'CNAME')
         for cname in response:
             print(f"CNAME record for {domain_name} is: {cname}")
-            write_output_file(domain_name, cname)
+            write_host_file(domain_name, cname)
         banner()
     except dns.resolver.NoAnswer:
         print(f"No CNAME record found for {domain_name}")
@@ -43,7 +43,7 @@ def dig_domain_name(domain_name,dns_server):
             response = resolver.resolve(domain_name, 'A')
             for ip in response:
                 print(f"A record for {domain_name} is: {ip}")
-                write_output_file(domain_name, ip)
+                write_host_file(domain_name, ip)
             banner()
         except dns.resolver.NoAnswer:
             print(f"No A record found for {domain_name}")
@@ -52,7 +52,7 @@ def dig_domain_name(domain_name,dns_server):
                 response = resolver.resolve(domain_name, 'AAAA')
                 for ip in response:
                     print(f"AAAA record for {domain_name} is: {ip}")
-                    write_output_file(domain_name, ip)
+                    write_host_file(domain_name, ip)
                 banner()
             except dns.resolver.NoAnswer:
                 print(f"No A record found for {domain_name}")
